@@ -3,7 +3,6 @@ package javaHacks;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.IntStream;
 
 public class TwoSum {
 
@@ -15,15 +14,21 @@ public class TwoSum {
 
 	public int[] twoSum(int[] nums, int target) {
 
-		for (int i = 0; i < nums.length; i++) {
-			int complement = target - nums[i];
+		Map<Integer, Integer> sum = new HashMap<>();
 
-			int indx = IntStream.range(0, nums.length).filter(a -> complement == nums[a]).findFirst().orElse(-1);
+		for (int i = 0, j = nums.length - 1; i < nums.length; i++, j--) {
 
-			if (indx != -1 && indx!=i) {
-				return new int[] { i, indx };
+			int complementI = target - nums[i];
+			int complementJ = target - nums[j];
+
+			if (sum.containsKey(complementI)) {
+				return new int[] { sum.get(complementJ), i };
 			}
-
+			if (sum.containsKey(complementJ)) {
+				return new int[] { sum.get(complementJ), j };
+			}
+			sum.put(nums[i], i);
+			sum.put(nums[j], j);
 		}
 
 		return null;
