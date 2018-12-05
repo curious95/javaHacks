@@ -1,54 +1,40 @@
 package javaHacks;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class LongestSubstring {
 
 	public static void main(String args[]) {
 
-		// String str = "dvdf";
-		// String str = "pwwkew";
-		String str = "aabaab!bb";
-
-		HashSet<Character> charHash = new HashSet<Character>();
-
-		int max = 0;
-		int ctr = 0;
-
-		for (int i = 0; i < str.length(); i++) {
-
-			Character tempChar = str.charAt(i);
-
-			// System.out.println(str.charAt(i));
-
-			if (charHash.contains(tempChar)) {
-
-				if (charHash.size() > max) {
-					max = charHash.size();
-				}
-
-				while (ctr < i) {
-					if (str.charAt(ctr) == tempChar) {
-						charHash.remove(tempChar);
-						ctr++;
-						break;
-					} else {
-						charHash.remove(str.charAt(ctr));
-						ctr++;
-					}
-				}
-				charHash.add(tempChar);
-
-			} else {
-				charHash.add(tempChar);
-				if (charHash.size() > max) {
-					max = charHash.size();
-				}
+		//String str = "au";
+		//String str = "pwwkew";
+		//String str = "kamal";
+		String str = "abcabcbb";
+		
+		List<String> arrayList = new ArrayList<String>(Arrays.asList(str.split("")));
+		int lindx = 0;
+		int findx = 0;
+		for(int i=0; i<arrayList.size(); i++) {
+			
+			String s = arrayList.get(i);
+			String subString = str.substring(0, i);
+			//System.out.println(subString);
+			//System.out.println(arrayList.lastIndexOf(s));
+			if(subString.lastIndexOf(s)<i && subString.lastIndexOf(s)!=-1) {
+				if(subString.lastIndexOf(s)!=-1)
+					findx = subString.lastIndexOf(s);
+					lindx = i;
+			}else {
+				lindx = i+1;
 			}
-
+			
+			System.out.println(s+"  "+findx+"  "+lindx);
 		}
+		
+		System.out.println(lindx-findx);
 
-		System.out.println(max + "    " + charHash.toString());
 
 	}
 
