@@ -9,6 +9,7 @@ public class QucikSort {
     { 
         int pivot = arr[high];  
         int i = (low-1); // index of smaller element 
+        System.out.println(i);
         for (int j=low; j<high; j++) 
         { 
             // If current element is smaller than or 
